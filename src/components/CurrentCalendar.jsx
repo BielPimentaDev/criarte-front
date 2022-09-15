@@ -26,7 +26,7 @@ export function CurrentCalendar({ openModal, months, month }) {
               <span className="text-center">
                 {translateDictionary[week[0]]}
               </span>
-                 <div className="font-bold  bg-gray-300 px-2 py-1 rounded-lg ">{ (week[1].total)}</div>
+                 {/* <div className="font-bold  bg-gray-300 px-2 py-1 rounded-lg ">{ (week[1].total)}</div> */}
 
               <div className=" flex flex-col gap-5">
                 {week[1].products.map((day) => {
