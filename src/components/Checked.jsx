@@ -1,44 +1,41 @@
 import axios from "axios";
 import React, { useState } from "react";
+import { useEffect } from "react";
 
 export default function Checked({ id, core_status, cover_status }) {
-  const [checkedCore, setCheckedCore] = useState(core_status);
-  const [checkedCover, setCheckedCover] = useState(cover_status);
-
-  function checkCore() {
-    const core = !checkedCore;
-    setCheckedCore(core);
-    axios.put(`https://thayxis.herokuapp.com/api/v1/products/${id}/status`, {
-      cover: checkedCover,
-      core: core,
-    });
-  }
-
-  function checkCover() {
-    const cover = !checkedCover;
-    setCheckedCover(cover);
-    axios.put(`https://thayxis.herokuapp.com/api/v1/products/${id}/status`, {
-      cover: cover,
-      core: checkedCore,
-    });
-  }
-
+  const [checkedCore, setCheckedCore] = useState(core_status)
+  const [checkedCover, setcheckedCover] = useState(cover_status)
+  const [firstRender, setFirstRender] = useState(false)
+  
+ 
+  useEffect(()=> {
+    setFirstRender(true)
+    console.log(`first render:${firstRender}`)
+    const checkHandler = async ()=>{
+      await axios.put(`https://thayxis.herokuapp.com/api/v1/products/${id}/status`, 
+      {cover: checkedCover,
+        core: checkedCore}
+      )
+    }
+    firstRender && checkHandler()
+  }  
+  , [checkedCore, checkedCover])
   return (
     <>
-      <label className={checkedCore ? "line-through" : ""}>
-        Miolo{" "}
+      <label >
+        Miolo
         <input
+          defaultChecked={checkedCore}
           type="checkbox"
-          onClick={checkCore}
-          checked={checkedCore}
+          onClick={()=> setCheckedCore(curr => !curr)}
         ></input>
       </label>
-      <label className={checkedCover ? "line-through" : ""}>
+      <label >
         Capa{" "}
         <input
           type="checkbox"
-          onClick={checkCover}
-          checked={checkedCover}
+         defaultChecked={checkedCover}
+         onClick={()=> setcheckedCover(curr => !curr)}
         ></input>
       </label>
     </>

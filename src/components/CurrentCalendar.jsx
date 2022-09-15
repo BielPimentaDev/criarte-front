@@ -22,10 +22,11 @@ export function CurrentCalendar({ openModal, months, month }) {
       <div className="flex  justify-center mt-10 flex-wrap  justify-items-start gap-5 sm:gap-10">
         {months.map((week) => {
           return (
-            <div className=" flex flex-col gap-4">
+            <div className=" flex flex-col items-center gap-4">
               <span className="text-center">
                 {translateDictionary[week[0]]}
               </span>
+                 <div className="font-bold  bg-gray-300 px-2 py-1 rounded-lg ">{ (week[1].total)}</div>
 
               <div className=" flex flex-col gap-5">
                 {week[1].products.map((day) => {
