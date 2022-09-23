@@ -30,14 +30,11 @@ function ClientsModal({ registerModal, closeModal }) {
 
   const url = `https://thayxis.herokuapp.com/api/v1/days/${dayUrl}`;
 
-  function fetchData() {
-    console.log(url);
-    axios
-      .get(url)
-      .then((res) => setClients(res.data))
-      .then((res) => setClientQtf(clients.length))
-      .catch((err) => console.log(err))
-      .finally(setIsLoading(false));
+  async function fetchData() {
+    const response = await axios.get(url)
+    setClients(response.data)
+
+    setIsLoading(false)
   }
   useEffect(() => {
     fetchData();
